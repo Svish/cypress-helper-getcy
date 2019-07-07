@@ -3,6 +3,6 @@
   "integrationFolder": "tests",
   "fixturesFolder": "fixtures",
   "supportFile": "support.js",
-  "pluginsFile": false,
+  "pluginsFile": "plugins.js",
   "video": false
 }
