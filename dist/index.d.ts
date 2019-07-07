@@ -10,10 +10,8 @@ declare namespace Cypress {
      *     // In a component
      *     <button data-cy="some-button">Click me</button>
      *
-     *     // In your test
+     *     // In a test
      *     cy.getCy('some-button').click();
-     *
-     * @see https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements
      */
     getCy: <E extends HTMLElement>(
       name: string,
