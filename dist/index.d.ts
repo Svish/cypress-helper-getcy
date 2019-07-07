@@ -1,5 +1,5 @@
 declare namespace Cypress {
   interface Chainable<Subject> {
-    getCy: typeof import('../src/getCy').getCy;
+    getCy: typeof import('../src/getCy').default;
   }
 }

@@ -9,13 +9,14 @@
   "license": "MIT",
   "scripts": {
     "prepare": "tsc",
-    "release": "release-it",
-    "start": "run-s -s prepare cypress:open",
-    "test": "run-s -s prepare lint:* cypress:run",
+    "watch": "tsc --watch --preserveWatchOutput",
+    "start": "run-p --silent --race watch cypress:open",
+    "test": "run-s --silent --print-name prepare lint:* cypress:run",
     "cypress:open": "cypress open --project test",
     "cypress:run": "cypress run --project test",
     "lint:ts": "tsc --noEmit",
-    "lint:prettier": "prettier --ignore-path .gitignore --check \"**/*\""
+    "lint:prettier": "prettier --ignore-path .gitignore --check \"**/*\"",
+    "release": "release-it"
   },
   "release-it": {
     "git": {
@@ -25,6 +26,11 @@
     },
     "github": {
       "release": true
+    },
+    "hooks": {
+      "before:init": [
+        "npm test"
+      ]
     }
   },
   "author": "Torleif Berger <torleif@outlook.com> (https://www.geekality.net)",

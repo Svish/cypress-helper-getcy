@@ -11,28 +11,33 @@
  *
  * @see https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements
  */
-export const getCy = <E extends HTMLElement>(
-  name: string
+export default <E extends HTMLElement>(
+  name: string,
+  options?: Partial<Cypress.Loggable & Cypress.Timeoutable>
 ): Cypress.Chainable<JQuery<E>> => {
-  // TODO: Support same options as `get`; use `log` locally, pass on `timeout` to `get`
   const selector = `[data-cy='${name}']`;
-  const log = Cypress.log({
-    name: 'getCy',
-    displayName: 'get cy',
-    message: [name],
-  });
+  const shouldLog = options && options.log;
+  let logger: Cypress.Log;
 
-  return cy.get<E>(selector, { log: false }).should($el => {
-    const els = $el.toArray();
-    log.set({
-      $el: $el,
-      consoleProps: () => ({
-        name,
-        yielded: els.length === 1 ? els[0] : els,
-        elements: els.length,
-        selector,
-      }),
+  if (shouldLog !== false)
+    logger = Cypress.log({
+      name: 'getCy',
+      displayName: 'get cy',
+      message: [name],
     });
+
+  return cy.get<E>(selector, { log: false, ...options }).should($el => {
+    const els = $el.toArray();
+    if (logger)
+      logger.set({
+        $el: $el,
+        consoleProps: () => ({
+          name,
+          yielded: els.length === 1 ? els[0] : els,
+          elements: els.length,
+          selector,
+        }),
+      });
     return $el;
   });
 };

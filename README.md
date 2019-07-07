@@ -23,10 +23,6 @@ include 'cypress-helper-getcy';
 it('finds my test subject', () => {
   cy.getCy('my-test-subject').should('exist');
 });
-
-it('works with within', () => {
-  cy.getCy('parent').within(() => {
-    cy.getCy('child').should('exist');
-  });
-});
 ```
+
+_**Note:** See [tests](test/tests/getCy.js) for more examples._
