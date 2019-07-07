@@ -2,7 +2,7 @@
 
 ![npm](https://img.shields.io/npm/v/cypress-helper-getcy.svg?style=flat-square)
 
-> Simple [Cypress](https://www.cypress.io/) command for getting elements via `data-cy` attributes, following their [recommended practice](https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements).
+> A simple [Cypress](https://www.cypress.io/) [command](https://docs.cypress.io/api/cypress-api/custom-commands.html) for getting elements via `data-cy` attributes, following their [recommended practice](https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements).
 
 ## Install
 
