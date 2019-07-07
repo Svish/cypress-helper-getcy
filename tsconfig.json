@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "lib": ["es6", "dom"],
-    "strict": true,
-    "allowJs": true,
-    "checkJs": true,
-    "noEmit": true
-  }
+    "types": ["cypress"],
+    "outDir": "dist",
+    "strict": true
+  },
+  "include": ["src"]
 }

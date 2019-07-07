@@ -1,4 +1,19 @@
-const getCy = name => {
+/**
+ * Get one or more DOM elements by `data-cy` attribute.
+ *
+ * @example
+ *
+ *     // In a component
+ *     <button data-cy="some-button">Click me</button>
+ *
+ *     // In your test
+ *     cy.getCy('some-button').click();
+ *
+ * @see https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements
+ */
+export const getCy = <E extends HTMLElement>(
+  name: string
+): Cypress.Chainable<JQuery<E>> => {
   // TODO: Support optional `prevSubject` for searching within `subject`.
   // TODO: Support same options as `get`; use `log` locally and pass on `timeout` to `get`
   const selector = `[data-cy='${name}']`;
@@ -8,7 +23,7 @@ const getCy = name => {
     message: [name],
   });
 
-  return cy.get(selector, { log: false }).should($el => {
+  return cy.get<E>(selector, { log: false }).should($el => {
     const els = $el.toArray();
     log.set({
       $el: $el,
@@ -22,5 +37,3 @@ const getCy = name => {
     return $el;
   });
 };
-
-Cypress.Commands.add('getCy', { prevSubject: false }, getCy);

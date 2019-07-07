@@ -8,21 +8,24 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "cypress open --project test",
-    "test": "cypress run --project test",
+    "prepare": "tsc",
+    "start": "run-s prepare cypress:open",
+    "test": "run-s prepare cypress:run",
+    "cypress:open": "cypress open --project test",
+    "cypress:run": "cypress run --project test",
     "lint": "run-p -slc --aggregate-output lint:*",
     "lint:types": "tsc",
-    "lint:prettier": "prettier --check \"**/*.{ts,js,json}\""
+    "lint:prettier": "prettier --ignore-path .gitignore --check \"**/*.{ts,js,json}\""
   },
   "author": "Torleif Berger <torleif@outlook.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/svish/cypress-helper-getcy"
   },
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "src"
+    "dist"
   ],
   "peerDependencies": {
     "cypress": ">=0.20.0"
