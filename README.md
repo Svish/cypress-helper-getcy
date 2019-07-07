@@ -1,6 +1,6 @@
 # cypress-helper-getcy
 
-> Simple Cypress command for getting elements via `data-cy` attributes, following their [recommended practice](https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements).
+> Simple [Cypress](https://www.cypress.io/) command for getting elements via `data-cy` attributes, following their [recommended practice](https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements).
 
 ## Install
 
