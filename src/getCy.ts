@@ -14,8 +14,7 @@
 export const getCy = <E extends HTMLElement>(
   name: string
 ): Cypress.Chainable<JQuery<E>> => {
-  // TODO: Support optional `prevSubject` for searching within `subject`.
-  // TODO: Support same options as `get`; use `log` locally and pass on `timeout` to `get`
+  // TODO: Support same options as `get`; use `log` locally, pass on `timeout` to `get`
   const selector = `[data-cy='${name}']`;
   const log = Cypress.log({
     name: 'getCy',

@@ -1,7 +1,7 @@
 {
   "projectId": "cypress-helper-getcy",
   "integrationFolder": "tests",
-  "fixturesFolder": false,
+  "fixturesFolder": "fixtures",
   "supportFile": "support.js",
   "pluginsFile": false,
   "video": false
