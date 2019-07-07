@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 declare namespace Cypress {
   interface Chainable<Subject> {
     /**
@@ -13,9 +11,6 @@ declare namespace Cypress {
      *     // In a test
      *     cy.getCy('some-button').click();
      */
-    getCy: <E extends HTMLElement>(
-      name: string,
-      options?: Partial<Loggable & Timeoutable>
-    ) => Chainable<JQuery<E>>;
+    getCy: typeof import('./getCy').default;
   }
 }

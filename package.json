@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "prepare": "tsc",
-    "watch": "tsc --watch --preserveWatchOutput",
+    "watch": "tsc --watch --preserveWatchOutput --listEmittedFiles",
     "start": "run-p --silent --race watch cypress:open",
     "test": "run-s --silent --print-name prepare lint:* cypress:run",
     "cypress:open": "cypress open --project test",
@@ -40,7 +40,7 @@
     "url": "https://github.com/svish/cypress-helper-getcy"
   },
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/globals.d.ts",
   "files": [
     "dist"
   ],
