@@ -1,7 +1,7 @@
 {
   "name": "cypress-helper-getcy",
   "version": "0.0.1",
-  "description": "Simple cypress helper for getting elements based on their `data-cy` attribute",
+  "description": "Simple Cypress command for getting elements via `data-cy` attributes",
   "keywords": [
     "cypress",
     "helper"
@@ -9,15 +9,14 @@
   "license": "MIT",
   "scripts": {
     "prepare": "tsc",
-    "start": "run-s prepare cypress:open",
-    "test": "run-s prepare cypress:run",
+    "start": "run-s -s prepare cypress:open",
+    "test": "run-s -s prepare lint:* cypress:run",
     "cypress:open": "cypress open --project test",
     "cypress:run": "cypress run --project test",
-    "lint": "run-p -slc --aggregate-output lint:*",
-    "lint:types": "tsc",
-    "lint:prettier": "prettier --ignore-path .gitignore --check \"**/*.{ts,js,json}\""
+    "lint:ts": "tsc --noEmit",
+    "lint:prettier": "prettier --ignore-path .gitignore --check \"**/*\""
   },
-  "author": "Torleif Berger <torleif@outlook.com>",
+  "author": "Torleif Berger <torleif@outlook.com> (https://www.geekality.net)",
   "repository": {
     "type": "git",
     "url": "https://github.com/svish/cypress-helper-getcy"
@@ -31,11 +30,9 @@
     "cypress": ">=0.20.0"
   },
   "devDependencies": {
-    "@cypress/webpack-preprocessor": "^4.1.0",
     "cypress": "^3.3.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
-    "typescript": "^3.5.2",
-    "webpack": "^4.35.2"
+    "typescript": "^3.5.2"
   }
 }
