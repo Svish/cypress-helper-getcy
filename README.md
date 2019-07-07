@@ -27,4 +27,4 @@ it('finds my test subject', () => {
 });
 ```
 
-_**Note:** See [tests](test/tests/getCy.js) for more examples._
+_**Note:** See [tests](test/tests/getCy.ts) for more examples._
