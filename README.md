@@ -1,5 +1,7 @@
 # cypress-helper-getcy
 
+![npm](https://img.shields.io/npm/v/cypress-helper-getcy.svg?style=flat-square)
+
 > Simple [Cypress](https://www.cypress.io/) command for getting elements via `data-cy` attributes, following their [recommended practice](https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements).
 
 ## Install
