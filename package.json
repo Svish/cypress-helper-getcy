@@ -40,7 +40,7 @@
     "url": "https://github.com/svish/cypress-helper-getcy"
   },
   "main": "dist/index.js",
-  "types": "dist/globals.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
