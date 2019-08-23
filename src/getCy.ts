@@ -20,7 +20,7 @@ export default <E extends HTMLElement>(
   if (shouldLog !== false)
     logger = Cypress.log({
       name: 'getCy',
-      displayName: 'get cy',
+      displayName: 'Get',
       message: [name],
     });
 
