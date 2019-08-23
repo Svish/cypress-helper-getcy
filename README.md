@@ -14,9 +14,13 @@ Well, I like clean tests, and found both the test code and the test log to be ra
 
 ## Setup
 
+### 1. Install
+
 ```shell
 npm install --save-dev cypress-helper-getcy
 ```
+
+### 2. Include
 
 ```js
 // cypress/support/index.js
