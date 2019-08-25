@@ -19,10 +19,15 @@
     "lint:prettier": "prettier --ignore-path .gitignore --check \"**/*\"",
     "release": "release-it"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
+  },
   "release-it": {
     "git": {
       "tagName": "v%s",
-      "commitArgs": "--gpg-sign",
+      "commitArgs": "--gpg-sign --no-verify",
       "tagArgs": "--sign"
     },
     "github": {
@@ -51,6 +56,7 @@
     "@cypress/webpack-preprocessor": "^4.1.0",
     "@types/mocha": "^5.2.7",
     "cypress": "^3.4.1",
+    "husky": "^3.0.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "release-it": "^12.3.5",
