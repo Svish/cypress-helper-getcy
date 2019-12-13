@@ -24,18 +24,20 @@ export default <E extends HTMLElement>(
       message: [name],
     });
 
-  return cy.get<E>(selector, { log: false, ...options }).should($el => {
-    const els = $el.toArray();
-    if (logger)
-      logger.set({
-        $el: $el,
-        consoleProps: () => ({
-          name,
-          yielded: els.length === 1 ? els[0] : els,
-          elements: els.length,
-          selector,
-        }),
-      });
-    return $el;
-  });
+  return cy
+    .get<E>(selector, { log: false, ...options })
+    .should($el => {
+      const els = $el.toArray();
+      if (logger)
+        logger.set({
+          $el: $el,
+          consoleProps: () => ({
+            name,
+            yielded: els.length === 1 ? els[0] : els,
+            elements: els.length,
+            selector,
+          }),
+        });
+      return $el;
+    });
 };
