@@ -11,9 +11,10 @@
  */
 export default <E extends HTMLElement>(
   name: string,
+  extra: string = '',
   options?: Partial<Cypress.Loggable & Cypress.Timeoutable>
 ): Cypress.Chainable<JQuery<E>> => {
-  const selector = `[data-cy='${name}']`;
+  const selector = `[data-cy='${name}']` + extra;
   const shouldLog = options && options.log;
   let logger: Cypress.Log;
 
@@ -21,23 +22,21 @@ export default <E extends HTMLElement>(
     logger = Cypress.log({
       name: 'getCy',
       displayName: 'Get',
-      message: [name],
+      message: [name, extra],
     });
 
-  return cy
-    .get<E>(selector, { log: false, ...options })
-    .should($el => {
-      const els = $el.toArray();
-      if (logger)
-        logger.set({
-          $el: $el,
-          consoleProps: () => ({
-            name,
-            yielded: els.length === 1 ? els[0] : els,
-            elements: els.length,
-            selector,
-          }),
-        });
-      return $el;
-    });
+  return cy.get<E>(selector, { log: false, ...options }).should($el => {
+    const els = $el.toArray();
+    if (logger)
+      logger.set({
+        $el: $el,
+        consoleProps: () => ({
+          name,
+          yielded: els.length === 1 ? els[0] : els,
+          elements: els.length,
+          selector,
+        }),
+      });
+    return $el;
+  });
 };

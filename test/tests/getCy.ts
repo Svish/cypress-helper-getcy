@@ -12,6 +12,10 @@ describe('getCy', () => {
       cy.getCy('item').should('have.length', 3);
     });
 
+    it('can pass extra selectors', () => {
+      cy.getCy('items', '>:nth-child(2)').should('have.text', 'Bob');
+    });
+
     context('with `within`', () => {
       it('also works as expected', () => {
         cy.getCy('items').within(() => {
@@ -23,15 +27,15 @@ describe('getCy', () => {
 
   describe('options', () => {
     it('can disable logging via log = false', () => {
-      cy.getCy('items', { log: false });
+      cy.getCy('items', undefined, { log: false });
     });
 
     it('can enable logging for internal `get` via log = true', () => {
-      cy.getCy('items', { log: true });
+      cy.getCy('items', undefined, { log: true });
     });
 
     it('can pass a timeout to internal `get`', () => {
-      cy.getCy('items', { timeout: 500 });
+      cy.getCy('items', undefined, { timeout: 500 });
     });
   });
 });
