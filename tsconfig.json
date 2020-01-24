@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "lib": ["es6", "dom"],
+    "target": "ES5",
+    "module": "CommonJS",
+    "lib": ["ES6", "DOM"],
     "types": ["cypress"],
     "outDir": "dist",
     "declaration": true,

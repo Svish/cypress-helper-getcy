@@ -1,4 +1,4 @@
-/// <reference path="./globals.ts"/>
+/// <reference path="./cypress.ts"/>
 
 import getCy from './getCy';
 export { cypressTag, useCypressTag, getCypressTag } from './tag';
