@@ -19,7 +19,7 @@
     "lint:ts": "tsc --noEmit",
     "lint:prettier": "prettier --ignore-path .lintignore --list-different \"**/*\"",
     "clean": "rimraf dist",
-    "upgrade": "npm-check --update",
+    "update": "npm-check --update",
     "release": "release-it"
   },
   "husky": {
@@ -58,15 +58,15 @@
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.1.1",
     "@types/mocha": "^5.2.7",
-    "cypress": "^3.8.0",
-    "husky": "^3.1.0",
+    "cypress": "^3.8.2",
+    "husky": "^4.2.1",
     "npm-check": "^5.9.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "release-it": "^12.4.3",
     "rimraf": "^3.0.0",
     "ts-loader": "^6.2.1",
-    "typescript": "^3.7.3",
-    "webpack": "^4.41.2"
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5"
   }
 }
