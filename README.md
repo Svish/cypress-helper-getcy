@@ -27,15 +27,54 @@ npm install --save-dev cypress-helper-getcy
 include 'cypress-helper-getcy';
 ```
 
-## Usage
+## Basic usage
 
 ```html
 <div data-cy="my-test-subject"></div>
 ```
 
-```js
+```ts
 it('finds my test subject', () => {
   cy.getCy('my-test-subject').should('exist');
+});
+```
+
+## With helpers
+
+```tsx
+import React from 'react';
+import { useCypressTag } from 'cypress-helper-getcy';
+
+export default function Search(): React.Element {
+  const tag = useCypressTag('feature/search');
+  return (
+    <form {...tag()}>
+      <input {...tag('input')} />
+      <button {...tag('button')}>Search</button>
+    </form>
+  );
+}
+```
+
+```ts
+import { cypressTag } from 'cypress-helper-getcy';
+
+const tag = cypressTag('feature/search');
+
+it('finds my tagged items', () => {
+  cy.getCy(tag('input')).type('term');
+  cy.getCy(tag('button')).click();
+});
+```
+
+```ts
+import { getCypressTag } from 'cypress-helper-getcy';
+
+const getCy = getCypressTag('feature/search');
+
+it('finds my tagged items', () => {
+  getCy('input').type('term');
+  getCy('button').click();
 });
 ```
 
