@@ -1,4 +1,4 @@
-import { cypressTag, useCypressTag, getCypressTag } from '../../src';
+import { cypressTag, useCypressTag, getCypressTag } from '../..';
 
 describe('getCy', () => {
   before(() => {
