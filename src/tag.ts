@@ -76,12 +76,20 @@ export function useCypressTag(namespace: string) {
  * @returns The `namespacedTag` function, with namespace preset.
  */
 export function getCypressTag(namespace: string) {
-  const tag = cypressTag(namespace);
+  const nsTag = cypressTag(namespace);
   return function<E extends HTMLElement>(
-    name?: string,
-    extra?: string,
+    tag?: string | string[],
+    append?: string,
     options?: Options
   ): Return<E> {
-    return cy.getCy(tag(name), extra, options);
+    return cy.getCy(
+      typeof tag === 'string'
+        ? nsTag(tag)
+        : typeof tag === 'undefined'
+        ? nsTag()
+        : tag.map(t => nsTag(t)),
+      append,
+      options
+    );
   };
 }

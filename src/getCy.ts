@@ -16,11 +16,14 @@ export type Return<E extends HTMLElement> = Cypress.Chainable<JQuery<E>>;
  * ```
  */
 export default function getCy<E extends HTMLElement>(
-  name: string,
-  extra: string = '',
+  tag: string | string[],
+  append: string = '',
   options?: Options
 ): Return<E> {
-  const selector = dataCy(name, extra);
+  const selector =
+    typeof tag === 'string'
+      ? dataCy(tag, append)
+      : tag.map(n => dataCy(n, append)).join(', ');
   const shouldLog = options && options.log;
   let logger: Cypress.Log;
 
@@ -28,7 +31,7 @@ export default function getCy<E extends HTMLElement>(
     logger = Cypress.log({
       name: 'getCy',
       displayName: 'Get',
-      message: [name, extra],
+      message: [tag, append],
     });
 
   return cy
@@ -39,7 +42,7 @@ export default function getCy<E extends HTMLElement>(
         logger.set({
           $el: $el,
           consoleProps: () => ({
-            name,
+            name: tag,
             yielded: els.length === 1 ? els[0] : els,
             elements: els.length,
             selector,

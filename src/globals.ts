@@ -4,12 +4,13 @@ declare namespace Cypress {
      * Get one or more DOM elements by `data-cy` attribute.
      *
      * @example
+     * ```tsx
+     * // In a component
+     * <button data-cy="some-button">Click me</button>
      *
-     *     // In a component
-     *     <button data-cy="some-button">Click me</button>
-     *
-     *     // In a test
-     *     cy.getCy('some-button').click();
+     * // In a test
+     * cy.getCy('some-button').click();
+     * ```
      */
     getCy: typeof import('./getCy').default;
   }
