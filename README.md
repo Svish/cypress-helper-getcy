@@ -27,26 +27,25 @@ npm install --save-dev cypress-helper-getcy
 include 'cypress-helper-getcy';
 ```
 
-## Basic usage
+## Tagging your subjects
+
+### Plain HTML
 
 ```html
-<div data-cy="my-test-subject"></div>
+<form data-cy="search">
+  <input data-cy="search/input" />
+  <button data-cy="search/button">Search</button>
+</form>
 ```
 
-```ts
-it('finds my test subject', () => {
-  cy.getCy('my-test-subject').should('exist');
-});
-```
-
-## With helpers
+## React, with `useCypressTag` helper
 
 ```tsx
 import React from 'react';
 import { useCypressTag } from 'cypress-helper-getcy';
 
 export default function Search(): React.Element {
-  const tag = useCypressTag('feature/search');
+  const tag = useCypressTag('search');
   return (
     <form {...tag()}>
       <input {...tag('input')} />
@@ -56,25 +55,47 @@ export default function Search(): React.Element {
 }
 ```
 
+## Getting your subjects
+
+### Plain
+
+```ts
+it('finds my tagged subjects', () => {
+  cy.getCy('search').should('be.visible');
+  cy.getCy('search/input').type('term');
+  cy.getCy('search/button').click();
+
+  cy.getCy(['search/input', 'search/button']).should('have.length', 2);
+});
+```
+
+### Using the `cypressTag` helper
+
 ```ts
 import { cypressTag } from 'cypress-helper-getcy';
 
-const tag = cypressTag('feature/search');
+const tag = cypressTag('search');
 
-it('finds my tagged items', () => {
+it('finds my tagged subjects', () => {
+  cy.getCy(tag()).should('be.visible');
   cy.getCy(tag('input')).type('term');
   cy.getCy(tag('button')).click();
+  cy.getCy(tag(['input', 'button'])).should('have.length', 2);
 });
 ```
+
+### Using the `getCypressTag` helper
 
 ```ts
 import { getCypressTag } from 'cypress-helper-getcy';
 
-const getCy = getCypressTag('feature/search');
+const get = getCypressTag('search');
 
-it('finds my tagged items', () => {
-  getCy('input').type('term');
-  getCy('button').click();
+it('finds my tagged subjects', () => {
+  get().should('be.visible');
+  get('input').type('term');
+  get('button').click();
+  get(['input', 'button']).should('have.length', 2);
 });
 ```
 
@@ -84,18 +105,20 @@ _**Note:** See [tests](test/tests/getCy.ts) for more examples._
 
 When importing `useCypressTag` or `cypressTag` into non-cypress files, I get a bunch of TS2403 errors from `jest`. No clue why, or how to fix it yet... let me know if you do... 😕
 
-It works fine in the test in this project, but not when I tried to use this package in a different project. The Cypress side of things works great, but I've had to just copy the hook into the project, which does work, to work around those errors. 🤷‍♂️
+It works fine in the test in this project, but not when I tried to use this package in a different project. The Cypress side of things works great, but I've had to just copy the hook into the project, which does work. 🤷‍♂️
+
+So, if you run into the same issue, you can copy the following into your own project and use it from there:
 
 ```ts
-// src/util/useCypressTag.ts
+// E.g. in src/util/useCypressTag.ts
 
 export interface DataCyProp {
   'data-cy': string;
 }
 
 export default function useCypressTag(namespace: string) {
-  return (name?: string): DataCyProp => ({
-    'data-cy': name ? `${namespace}/${name}` : namespace,
+  return (tag?: string): DataCyProp => ({
+    'data-cy': tag ? `${namespace}/${tag}` : namespace,
   });
 }
 ```
