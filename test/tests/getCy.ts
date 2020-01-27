@@ -1,4 +1,4 @@
-import { cypressTag, useCypressTag, getCypressTag } from '../..';
+import { selector, cypressTag, useCypressTag, getCypressTag } from '../..';
 
 describe('cypress-helper-getcy', () => {
   before(() => {
@@ -44,6 +44,17 @@ describe('cypress-helper-getcy', () => {
       it('can pass a timeout to internal `get`', () => {
         cy.getCy('items', undefined, { timeout: 500 });
       });
+    });
+  });
+
+  describe('selector', () => {
+    it('works', () => {
+      expect(selector('foo')).equal(`[data-cy='foo']`);
+    });
+    it('works with `append` parameter', () => {
+      expect(selector('foo', ':first-child')).equal(
+        `[data-cy='foo']:first-child`
+      );
     });
   });
 

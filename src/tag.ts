@@ -4,38 +4,32 @@ export interface DataCyProp {
   'data-cy': string;
 }
 
-/**
- * Assembles a CSS selector for a `data-cy` data attribute.
- *
- * @param name The data-cy name, e.g. `"foobar"`
- * @param extra Optional extra selector to append, e.g. `":first-child"`
- * @returns E.g. `"[data-cy='foobar']"`, or `"[data-cy='foobar']:first-child"`
- */
-export function dataCy(name: string, extra: string = ''): string {
-  return `[data-cy='${name}']` + extra;
-}
-
-/**
- * Joins a tag with a namespace.
- *
- * @param namespace E.g. `"feature/search"`
- * @param name E.g. `"input"`
- * @returns E.g. `"feature/search`, or `"feature/search/input""`
- */
-export function ns(namespace: string, name?: string): string {
+function ns(namespace: string, name?: string): string {
   return name ? `${namespace}/${name}` : namespace;
 }
 
 /**
- * Helper function to use in Cypress tests.
+ * Assembles a CSS selector for a `data-cy` data attribute.
+ *
+ * @param tag The data-cy tag, e.g. `"foobar"` or `"foo/bar"`
+ * @param append Optional selector to append, e.g. `":first-child"`
+ * @returns E.g. `"[data-cy='foobar']"`, or `"[data-cy='foobar']:first-child"`
+ */
+export function selector(tag: string, append: string = ''): string {
+  return `[data-cy='${tag}']` + append;
+}
+
+/**
+ * Helper function to create tags.
  *
  * @example
  * ```ts
  *      const tag = cypressTag('feature/search')
- *      cy.getCy(tag('input'))
+ *      cy.getCy(tag())         // <-- feature/search
+ *      cy.getCy(tag('input'))  // <-- feature/search/input
  * ```
  * @param namespace The namespace string to use.
- * @returns The `namespacedTag` function, with namespace preset.
+ * @returns A function which returns a namespaced tag.
  */
 export function cypressTag(namespace: string) {
   return (name?: string): string => ns(namespace, name);

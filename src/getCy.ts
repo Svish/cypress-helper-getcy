@@ -1,4 +1,4 @@
-import { dataCy } from './tag';
+import { selector as makeSelector } from './tag';
 
 export type Options = Partial<Cypress.Loggable & Cypress.Timeoutable>;
 export type Return<E extends HTMLElement> = Cypress.Chainable<JQuery<E>>;
@@ -22,8 +22,8 @@ export default function getCy<E extends HTMLElement>(
 ): Return<E> {
   const selector =
     typeof tag === 'string'
-      ? dataCy(tag, append)
-      : tag.map(n => dataCy(n, append)).join(', ');
+      ? makeSelector(tag, append)
+      : tag.map(n => makeSelector(n, append)).join(', ');
   const shouldLog = options && options.log;
   let logger: Cypress.Log;
 
