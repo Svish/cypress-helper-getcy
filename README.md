@@ -55,6 +55,8 @@ export default function Search(): React.Element {
 }
 ```
 
+_**Note:** If you get a bunch of TS2403 errors from Typescript after importing `useCypressTag` into your application code, see [this issue](https://github.com/Svish/cypress-helper-getcy/issues/1) for a workaround._
+
 ## Getting your subjects
 
 ### Plain
@@ -100,25 +102,3 @@ it('finds my tagged subjects', () => {
 ```
 
 _**Note:** See [tests](test/tests/getCy.ts) for more examples._
-
-## Known issues
-
-When importing `useCypressTag` or `cypressTag` into non-cypress files, I get a bunch of TS2403 errors from `jest`. No clue why, or how to fix it yet... let me know if you do... 😕
-
-It works fine in the test in this project, but not when I tried to use this package in a different project. The Cypress side of things works great, but I've had to just copy the hook into the project, which does work. 🤷‍♂️
-
-So, if you run into the same issue, you can copy the following into your own project and use it from there:
-
-```ts
-// E.g. in src/util/useCypressTag.ts
-
-export interface DataCyProp {
-  'data-cy': string;
-}
-
-export default function useCypressTag(namespace: string) {
-  return (tag?: string): DataCyProp => ({
-    'data-cy': tag ? `${namespace}/${tag}` : namespace,
-  });
-}
-```
