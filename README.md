@@ -38,7 +38,7 @@ include 'cypress-helper-getcy';
 </form>
 ```
 
-## React, with `useCypressTag` helper
+### React, with `useCypressTag` helper
 
 ```tsx
 import React from 'react';
