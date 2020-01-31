@@ -20,11 +20,11 @@ Well, I like clean tests, and I found both the test code and logs to be rather u
 npm install --save-dev cypress-helper-getcy
 ```
 
-### 2. Include
+### 2. Import
 
 ```js
 // E.g. in cypress/support/index.js
-include 'cypress-helper-getcy';
+import 'cypress-helper-getcy';
 ```
 
 ## Tagging your subjects
