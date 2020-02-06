@@ -1,4 +1,10 @@
-import { selector, cypressTag, useCypressTag, getCypressTag } from '../..';
+import {
+  selector,
+  cypressTag,
+  useCypressTag,
+  getCypressTag,
+  combineParts,
+} from '../..';
 
 describe('cypress-helper-getcy', () => {
   before(() => {
@@ -58,43 +64,69 @@ describe('cypress-helper-getcy', () => {
     });
   });
 
+  describe('combineParts', () => {
+    it('works no parts', () => {
+      expect(combineParts()).equal('');
+    });
+    it('works with one part', () => {
+      expect(combineParts('foo')).equal('foo');
+    });
+    it('works with multiple parts', () => {
+      expect(combineParts('foo', 'bar', 'baz')).equal('foo/bar/baz');
+    });
+  });
+
   describe('cypressTag', () => {
-    const tag = cypressTag('foo');
     it('works without name', () => {
-      expect(tag()).equal('foo');
+      expect(cypressTag('foo')()).equal('foo');
     });
     it('works with name', () => {
-      expect(tag('bar')).equal('foo/bar');
+      expect(cypressTag('foo')('bar')).equal('foo/bar');
+    });
+    it('works with multiple namespace parts', () => {
+      expect(cypressTag('foo', 'bar')('baz')).equal('foo/bar/baz');
     });
   });
 
   describe('useCypressTag', () => {
-    const tag = useCypressTag('foo');
     it('works without name', () => {
-      expect(tag()).eql({ 'data-cy': 'foo' });
+      expect(useCypressTag('foo')()).eql({ 'data-cy': 'foo' });
     });
     it('works with name', () => {
-      expect(tag('bar')).eql({ 'data-cy': 'foo/bar' });
+      expect(useCypressTag('foo')('bar')).eql({ 'data-cy': 'foo/bar' });
+    });
+    it('works with multiple namespaces', () => {
+      expect(useCypressTag('foo', 'bar')('baz')).eql({
+        'data-cy': 'foo/bar/baz',
+      });
     });
   });
 
   describe('getCypressTag', () => {
-    const getTag = getCypressTag('foo');
     it('works without name', () => {
-      getTag()
+      const tag = getCypressTag('foo');
+      tag()
         .should('exist')
         .and('have.text', 'Foo');
     });
     it('works with name', () => {
-      getTag('bar')
+      const tag = getCypressTag('foo');
+      tag('bar')
         .should('exist')
-        .and('have.text', 'Bar');
+        .and('have.text', 'Foo Bar');
     });
     it('works with several names', () => {
-      getTag(['bar', 'baz']).should($items => {
-        expect($items.eq(0)).to.have.text('Bar');
-        expect($items.eq(1)).to.have.text('Baz');
+      const tag = getCypressTag('foo');
+      tag(['bar', 'baz']).should($items => {
+        expect($items.eq(0)).to.have.text('Foo Bar');
+        expect($items.eq(1)).to.have.text('Foo Baz');
       });
+    });
+    it('works with several namespaces', () => {
+      const tag = getCypressTag('foo', 'bar');
+      tag('baz')
+        .should('exist')
+        .and('have.text', 'Foo Bar Baz');
     });
   });
 });

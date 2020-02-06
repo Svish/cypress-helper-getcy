@@ -4,8 +4,10 @@ export interface DataCyProp {
   'data-cy': string;
 }
 
-function ns(namespace: string, name?: string): string {
-  return name ? `${namespace}/${name}` : namespace;
+type Part = string | undefined;
+
+export function combineParts(...part: Part[]): string {
+  return part.filter(p => typeof p === 'string').join('/');
 }
 
 /**
@@ -31,8 +33,8 @@ export function selector(tag: string, append: string = ''): string {
  * @param namespace The namespace string to use.
  * @returns A function which returns a namespaced tag.
  */
-export function cypressTag(namespace: string) {
-  return (name?: string): string => ns(namespace, name);
+export function cypressTag(...namespace: Part[]) {
+  return (name?: string): string => combineParts(...namespace, name);
 }
 
 /**
@@ -53,9 +55,10 @@ export function cypressTag(namespace: string) {
  * @param namespace The namespace string to use.
  * @returns A function that returns an object with the data-cy prop, ready to be spread onto an HTML element.
  */
-export function useCypressTag(namespace: string) {
-  const tag = cypressTag(namespace);
-  return (name?: string): DataCyProp => ({ 'data-cy': tag(name) });
+export function useCypressTag(...namespace: Part[]) {
+  return (name?: string): DataCyProp => ({
+    'data-cy': cypressTag(...namespace)(name),
+  });
 }
 
 /**
@@ -69,8 +72,8 @@ export function useCypressTag(namespace: string) {
  * @param namespace The namespace string to use.
  * @returns The `namespacedTag` function, with namespace preset.
  */
-export function getCypressTag(namespace: string) {
-  const nsTag = cypressTag(namespace);
+export function getCypressTag(...namespace: Part[]) {
+  const nsTag = cypressTag(...namespace);
   return function<E extends HTMLElement>(
     tag?: string | string[],
     append?: string,
