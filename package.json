@@ -1,6 +1,6 @@
 {
   "name": "cypress-helper-getcy",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "A simple Cypress command for getting elements via `data-cy` attributes",
   "keywords": [
     "cypress",
