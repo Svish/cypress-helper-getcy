@@ -4,6 +4,8 @@ A simple [Cypress](https://www.cypress.io/) [command](https://docs.cypress.io/ap
 
 [![npm version](https://img.shields.io/npm/v/cypress-helper-getcy.svg?style=flat-square) ![npm downloads](https://img.shields.io/npm/dm/cypress-helper-getcy?style=flat-square)](https://www.npmjs.com/package/cypress-helper-getcy)
 
+_**DEPRECATED:** Using test id's to get elements has more or less been replaced by the much better practice of using queries based on accessibility. I recommend using something like [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro/) instead._
+
 ## Inspiration
 
 - [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements)
